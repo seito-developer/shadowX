@@ -5,10 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
-  border: 5px solid #6366f1;
   height: 100vh;
-  overflow: hidden;
 }
 
 @supports (-webkit-touch-callout: none) {

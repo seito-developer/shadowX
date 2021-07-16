@@ -1,65 +1,145 @@
-import React from 'react';
-import logo from './logo.svg';
-import randomCounts from './funcRandomCounts';
+import React, { useState } from 'react';
 import './App.css';
 
-const DELAY = 2000;
-const SPEAKER = {
-  en: 'Karen',
-  jp: 'Kyoko'
-}
-let timer:any;
+import ReactPlayer from 'react-player'
 
-// get voice data
-let voice = speechSynthesis.getVoices().find(function(voice){
-  return voice.name === SPEAKER.en;
-});
-
-function speak(speaker:string, text:string){
-  const uttr = new SpeechSynthesisUtterance(text);
-  
-  // Need to call 2 times because of the API's issue
-  voice = speechSynthesis.getVoices().find(function(voice){
-    return voice.name === speaker;
-  });
-  
-  if(voice){
-    uttr.voice = voice;
-  }
-  speechSynthesis.speak(uttr);
+interface Props {
+  url: string | null
+  pip: boolean
+  playing: boolean
+  controls: boolean
+  light: boolean
+  volume: number
+  muted: boolean
+  played: number
+  loaded: number
+  duration: number
+  playbackRate: number
+  loop: boolean
 }
 
-const handleClick = () => {
-  const script = randomCounts();
-  speak(SPEAKER.en, script);
-  clearTimeout(timer);
-  timer = setTimeout(() => {
-    speak(SPEAKER.jp, script)
-  }, DELAY);
-}
+const VIDEO_URL = 'https://vimeo.com/575873877'
 
 function App() {
 
+  const [ state, setState ] = useState<Props>({
+    url: null,
+    pip: false,
+    playing: false,
+    controls: false,
+    light: false,
+    volume: 0.8,
+    muted: false,
+    played: 0,
+    loaded: 0,
+    duration: 0,
+    playbackRate: 1.0,
+    loop: false
+  })
+
+  const load = (url:any) => {
+    setState({
+      ...state,
+      url,
+      played: 0,
+      loaded: 0,
+      pip: false
+    })
+  }
+
+  // ReactPlayer.canPlay('https://vimeo.com/575873877')
+
+  const onClick = {
+    play: () => {
+      console.log('clicked!');
+      setState({ 
+        ...state,
+        playing: !state.playing 
+      })
+      // ReactPlayer.canPlay('https://vimeo.com/575873877')
+      // if (state.playing) {
+      //   setState({ 
+      //     ...state,
+      //     playing: true
+      //   });
+      // } else {
+      //   setState({ 
+      //     ...state,
+      //     playing: false
+      //   });
+      // }
+    }
+    // pause: () => {
+    //   setPlaying: !state.playing
+    // }
+  }
+
+  const ref = (player:any) => {
+    player = player
+  }
+
+  const renderLoadButton = (url:string, label:any) => {
+    return (
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        onClick={() => load(url)}>
+        {label}
+      </button>
+    )
+  }
+
+  const { url, playing, controls, light, volume, muted, loop, played, loaded, duration, playbackRate, pip } = state
+
   return (
-    <div className="App h-full">
-      <div className="mx-5 mt-20 grid place-content-center">
-        <div className="bg-gradient-to-r from-blue-400 to-indigo-500 rounded-2xl text-white p-8 text-center h-72 mx-auto">
-          <h1 className="text-3xl mb-3 font-bold">Count JP</h1>
-          <p className="text-lg">
-            You can try to recognize numbers from English to Japanese by clicking the button!
-          </p>
-        </div>
-        <div className="bg-white py-8 px-8 text-center rounded-md shadow-lg transform -translate-y-20 sm:-translate-y-24 w-3/4 mx-auto">
-          <img className="w-20 h-20 object-cover rounded-full mx-auto shadow-lg" src="https://images.unsplash.com/photo-1611342799915-5dd9f1665d04?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="User avatar" />
-          {/* <p className="capitalize text-xl mt-1">essie walton</p> */}
-          <div className="mt-5 w-full">
-            <button 
-              className="rounded-md bg-gradient-to-r from-blue-400 to-indigo-500 text-xl text-white pt-3 pb-4 px-8 inline"
-              type="button" onClick={handleClick}
-            >Listten!</button>
-          </div>
-        </div>
-      </div>
+    <div className="App">
+        
+      <div className="player-wrapper">
+        <ReactPlayer
+          ref={ref}
+          className='react-player'
+          width='100%'
+          height='100%'
+          url={url}
+          pip={pip}
+          playing={playing}
+          controls={controls}
+          light={light}
+          loop={loop}
+          playbackRate={playbackRate}
+          volume={volume}
+          muted={muted}
+          onReady={() => console.log('onReady')}
+          onStart={() => console.log('onStart')}
+          // onPlay={handlePlay}
+          // onEnablePIP={handleEnablePIP}
+          // onDisablePIP={handleDisablePIP}
+          // onPause={handlePause}
+          onBuffer={() => console.log('onBuffer')}
+          onSeek={e => console.log('onSeek', e)}
+          // onEnded={handleEnded}
+          onError={e => console.log('onError', e)}
+          // onProgress={handleProgress}
+          // onDuration={handleDuration}
+        />
+        {/*<ReactPlayer
+          className="react-player"
+          url={'https://vimeo.com/575873877'}
+          autoPlay={true}
+          width={'100%'}
+          height={'100%'}
+          playing={state.playing}
+        />*/}
+       </div>
+
+       <div className="player-ui">
+         {renderLoadButton(VIDEO_URL, 'Play')}
+         {/*<button 
+           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+           type="button"
+           onClick={onClick.play}>Play</button>*/}
+
+         {/*<button onClick={onClick.pause}>{state ? 'Pause' : 'Play'}</button>*/}
+       </div>
     </div>
   );
 }
