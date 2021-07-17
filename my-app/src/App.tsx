@@ -5,6 +5,7 @@ import ReactPlayer from 'react-player'
 // import Player from '@vimeo/player'
 // '@types/vimeo__player'
 // const player = new Player(ReactPlayer);
+import Slider from '@material-ui/core/Slider';
 
 interface Props {
   ref: any
@@ -85,7 +86,7 @@ function App() {
   return (
     <div className="App">
         
-      <div className="player-wrapper">
+      <div className="player">
         <div className='player-wrapper'>
           <ReactPlayer 
           className='react-player' 
@@ -94,7 +95,16 @@ function App() {
           />
         </div>
 
+        <Slider 
+           value={state.played.played * 100}
+           onChange={handleSeekChange}
+             // value={value}
+             // onChange={handleChange}
+             // aria-labelledby="continuous-slider"
+             // height="50px"
+          />
          <input
+          className="progress"
           type='range' min={0} max={0.999999} step='any'
           value={state.played.played}
           // onMouseDown={handleSeekMouseDown}

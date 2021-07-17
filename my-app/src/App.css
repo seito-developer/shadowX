@@ -40,11 +40,14 @@
   }
 }
 
+.player {
+  width: 375px;
+}
 .player-wrapper {
   position: relative;
   /*width: 100%;*/
   /*height: 100%;*/
-  width: 375px;
+  width: 100%;
   height: 750px;
   background: #ccc;
 }
@@ -71,4 +74,25 @@ button {
   background: #ccc;
   padding: 5px;
   border: 1px solid #333;
+}
+
+.progress {
+  width: 100%;
+  height: 100px;
+}
+
+.MuiSlider-root {
+  height: 20px !important;
+}
+.MuiSlider-track {
+  height: 20px !important;
+  border-radius: 10px 0 0 10px !important;
+}
+.MuiSlider-rail {
+  height: 20px !important;
+  border-radius: 10px !important;
+}
+.MuiSlider-thumb {
+  width: 26px !important;
+  height: 26px !important;
 }
