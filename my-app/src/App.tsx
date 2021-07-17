@@ -52,10 +52,12 @@ function App() {
     playbackRate: 1
     // seeking: false
   })
+  const [ duration, setDuration ] = useState<number>(0)
   const [ point, setPoint ] = useState<PointProps>({
     start: 0,
-    end: 100
+    end: duration
   })
+  const [ partialRepeat, setPartialRepeat ] = useState(false)
 
   const handleReady = () => {
     console.log(point.start)
@@ -73,6 +75,7 @@ function App() {
   
   const handleStart = () => {
     console.log('start!')
+    setDuration(inputRange.current.getDuration())
     handleReady()
   }
 
@@ -90,17 +93,10 @@ function App() {
     clearTimeout(timer)
     timer = setTimeout(
       () => { 
-        // setState({ ...state, playing: true })
         setState({ ...state, playing: true })
-        // handlePlayAndPause();
       }, 500
     )
-    
   }
-  // const handleEnded = () => {
-  //   handleReady()
-  // }
-
   const handleSeekChange = (e:any) => {
     setState({ 
       ...state,
@@ -112,11 +108,29 @@ function App() {
      inputRange.current.seekTo(parseFloat(val));
   }
 
+  const forceRepeat = (current:number) => {
+    if(!partialRepeat) return
+    
+    if(current > point.end){
+      console.log('fire!')
+      handleReady()
+      setState({ ...state, playing: false })
+      clearTimeout(timer)
+      timer = setTimeout(
+        () => { 
+          setState({ ...state, playing: true })
+        }, 500
+      )
+    }
+  }
+
   const handleProgress = (progress:any) => {
     setState({
       ...state,
       played: progress
     })
+    console.log('now: ', progress.playedSeconds)
+    forceRepeat(progress.playedSeconds)
   }
   const AmountSlider = createTheme({
     overrides: {
@@ -161,17 +175,22 @@ function App() {
   }
 
   const handleSpeed = (val:number) => {
-    setState({
-      ...state,
-      playbackRate: val
-    })
+    setState({ ...state, playbackRate: val })
   }
 
   const handleStartPoint = (e:any) => {
-    setPoint({
-      ...point,
-      start: e.target.value
-    })
+    setPoint({ ...point, start: e.target.value })
+  }
+  const handleEndPoint = (e:any) => {
+    setPoint({ ...point, end: e.target.value })
+  }
+
+  const handlePartialRepeat = () => {
+    if(!partialRepeat){
+      setPartialRepeat(true)
+    } else {
+      setPartialRepeat(false)
+    }
   }
 
   return (
@@ -215,12 +234,19 @@ function App() {
         </div>
 
         <div className="grid justify-items-center">
-          {state.playbackRate}
+          再生スピード：{state.playbackRate} <br />
+          時間：{duration}秒 
         </div>
 
         <div className="grid justify-items-center">
+          <button onClick={() => handlePartialRepeat()}>A-B</button>  { partialRepeat ? 'ON' : 'OFF'}
+        </div>
+
+        
+
+        <div className="grid justify-items-center">
           <div>Min: <input type="number" value={point.start} onChange={(e) => handleStartPoint(e)} /></div>
-          <div>Max: <input type="number" /></div>
+          <div>Max: <input type="number" max={duration} value={point.end} onChange={(e) => handleEndPoint(e)} /></div>
         </div>
       </div>
     </div>
