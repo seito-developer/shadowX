@@ -15,7 +15,7 @@ interface Props {
   width: string
   height: string
   // pip: boolean
-  // playing: boolean
+  playing: boolean
   // controls: boolean
   // light: boolean
   // volume: number
@@ -41,16 +41,18 @@ function App() {
     loop: true,
     played: {
       played: 0
-    }
+    },
+    playing: false
     // seeking: false
   })
 
-  // const handleSeekMouseDown = (e:any) => {
-  //   setState({ 
-  //     ...state,
-  //     seeking: true 
-  //   })
-  // }
+  const handlePlayAndPause = () => {
+    if(!state.playing){
+      setState({ ...state, playing: true })
+    } else {
+      setState({ ...state, playing: false })
+    }
+  }
 
   const handleSeekChange = (e:any) => {
     setState({ 
@@ -59,19 +61,7 @@ function App() {
      })
   }
 
-  const handleSeekMouseUp = (e:any) => {
-    // setState({ 
-    //   ...state,
-    //   seeking: false 
-    //  })
-     inputRange.current.seekTo(parseFloat(e.target.value));
-  }
-
   const handleSeekMouseSlide = (val:any) => {
-    // setState({ 
-    //   ...state,
-    //   seeking: false 
-    //  })
      inputRange.current.seekTo(parseFloat(val));
   }
 
@@ -103,20 +93,8 @@ function App() {
     }
   });
 
-  // const renderLoadButton = (url:string, label:any) => {
-  //   return (
-  //     <button
-  //       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-  //       onClick={() => load(url)}>
-  //       {label}
-  //     </button>
-  //   )
-  // }
   const handleCommitted = (event: object, value: number | number[]) => {
-    console.log('event:', event)
-    console.log('value:', value)
     if(Array.isArray(value)) return
-
     const count = value * 0.01
     setState({
       ...state,
@@ -125,6 +103,14 @@ function App() {
       }
     })
     handleSeekMouseSlide(count)
+  }
+
+  const swithPlayIcon = () => {
+    if(!state.playing){
+      return 'Play'
+    } else {
+      return 'Stop'
+    }
   }
 
   return (
@@ -150,29 +136,18 @@ function App() {
               // height="50px"
             />
         </ThemeProvider>
-         <input
-          className="progress"
-          type='range' min={0} max={0.999999} step='any'
-          value={state.played.played}
-          // onMouseDown={handleSeekMouseDown}
-          onChange={handleSeekChange}
-          onMouseUp={handleSeekMouseUp} />
-       </div>
+
+        <div className="grid justify-items-center">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+            onClick={() => handlePlayAndPause()}>
+            {swithPlayIcon()}
+          </button>
+        </div>
+      </div>
     </div>
   )
 }
  
-       // {<div className="player-ui">
-       //    <input id='controls' type='checkbox' checked={controls} onChange={handleToggleControls} />
-       //    <em>&nbsp; Requires player reload</em>
-       //   {renderLoadButton(VIDEO_URL, 'Play')}
-       //   {<button 
-       //     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-       //     type="button"
-       //     onClick={onClick.play}>Play</button>}
-
-       //   {<button onClick={onClick.pause}>{state ? 'Pause' : 'Play'}</button>}
-       
-  
 
 export default App;
