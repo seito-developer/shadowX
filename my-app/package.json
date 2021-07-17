@@ -53,7 +53,7 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://seito-developer.github.io/shadowx",
+  "homepage": "https://seito-developer.github.io/shadowX",
   "devDependencies": {
     "autoprefixer": "^9",
     "postcss": "^7",
