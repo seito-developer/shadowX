@@ -2,9 +2,8 @@ import React, { useState, useRef } from 'react';
 import './App.css';
 import ReactPlayer from 'react-player'
 // import Duration from './Duration'
-import Player from '@vimeo/player'
+// import Player from '@vimeo/player'
 // '@types/vimeo__player'
-
 // const player = new Player(ReactPlayer);
 
 interface Props {
@@ -23,7 +22,7 @@ interface Props {
   // duration: number
   // playbackRate: number
   loop: boolean
-  seeking: boolean
+  // seeking: boolean
 }
 
 const VIDEO_URL = 'https://player.vimeo.com/video/575873877'
@@ -37,25 +36,18 @@ function App() {
     width: '100%',
     height: '100%',
     loop: true,
-    played: 0,
-    seeking: false
+    played: {
+      played: 0
+    }
+    // seeking: false
   })
-  
-  
-  // player.setCurrentTime(0)
 
-  // inputRange.current.on('play', function() {
-  //   console.log('played the video!');
-  // });
-
-  // console.log('player:', player)
-
-  const handleSeekMouseDown = (e:any) => {
-    setState({ 
-      ...state,
-      seeking: true 
-    })
-  }
+  // const handleSeekMouseDown = (e:any) => {
+  //   setState({ 
+  //     ...state,
+  //     seeking: true 
+  //   })
+  // }
 
   const handleSeekChange = (e:any) => {
     setState({ 
@@ -65,23 +57,18 @@ function App() {
   }
 
   const handleSeekMouseUp = (e:any) => {
-    setState({ 
-      ...state,
-      seeking: false 
-     })
+    // setState({ 
+    //   ...state,
+    //   seeking: false 
+    //  })
      inputRange.current.seekTo(parseFloat(e.target.value));
   }
 
   const handleProgress = (progress:any) => {
-    // We only want to update time slider if we are not currently seeking
-    // if (!state.seeking) {
     setState({
       ...state,
       played: progress
     })
-    // }
-    console.log('played', state.played)
-    console.log('progress: ', progress)
   }
   
 
@@ -95,9 +82,6 @@ function App() {
   //   )
   // }
 
-  // const { url, playing, controls, light, volume, muted, loop, played, loaded, duration, playbackRate, pip } = state
-  const SEPARATOR = ' · '
-
   return (
     <div className="App">
         
@@ -107,18 +91,13 @@ function App() {
           className='react-player' 
           {...state}
           onProgress={handleProgress}
-            // url={VIDEO_URL}
-            // className='react-player'
-            // width='100%'
-            // height='100%'
-            // loop={true}
           />
         </div>
 
          <input
           type='range' min={0} max={0.999999} step='any'
           value={state.played.played}
-          onMouseDown={handleSeekMouseDown}
+          // onMouseDown={handleSeekMouseDown}
           onChange={handleSeekChange}
           onMouseUp={handleSeekMouseUp} />
        </div>
