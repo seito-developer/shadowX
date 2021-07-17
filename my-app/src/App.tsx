@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './App.css';
+import './index.css';
 import ReactPlayer from 'react-player'
 // import Duration from './Duration'
 // import Player from '@vimeo/player'
@@ -58,6 +59,7 @@ function App() {
     end: duration
   })
   const [ partialRepeat, setPartialRepeat ] = useState(false)
+  const [ delay, setDelay ] = useState(1)
 
   const handleReady = () => {
     console.log(point.start)
@@ -136,7 +138,7 @@ function App() {
     overrides: {
       MuiSlider: {
         root: {
-          height: 20
+          height: 10
         },
         thumb: {
           height: 26,
@@ -174,8 +176,14 @@ function App() {
     }
   }
 
-  const handleSpeed = (val:number) => {
-    setState({ ...state, playbackRate: val })
+  const handleSpeed = () => {
+    const count = delay - 0.1
+    if(0.7 < count){
+      setDelay(Number((count).toFixed(1)))
+    } else {
+      setDelay(1)
+    }
+    setState({ ...state, playbackRate: delay })
   }
 
   const handleStartPoint = (e:any) => {
@@ -190,6 +198,13 @@ function App() {
       setPartialRepeat(true)
     } else {
       setPartialRepeat(false)
+    }
+  }
+  const switchRepeat = () => {
+    if(partialRepeat){
+      return 'is-active'
+    } else {
+      return ''
     }
   }
 
@@ -209,44 +224,44 @@ function App() {
           />
         </div>
 
-        <ThemeProvider theme={AmountSlider}>
-          <Slider 
-            value={state.played.played * 100}
-            aria-labelledby="continuous-slider"
-            onChange={handleSeekChange}
-            onChangeCommitted={(event, value) => handleCommitted(event, value)}
-            />
-        </ThemeProvider>
+        <div className="player-ui">
+          <ThemeProvider theme={AmountSlider}>
+            <div className="px-2">
+              <Slider 
+                value={state.played.played * 100}
+                aria-labelledby="continuous-slider"
+                onChange={handleSeekChange}
+                onChangeCommitted={(event, value) => handleCommitted(event, value)}
+                />
+            </div>
+          </ThemeProvider>
 
-        <div className="grid justify-items-center">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-            onClick={() => handlePlayAndPause()}>
-            {swithPlayIcon()}
-          </button>
-        </div>
-
-        <div className="grid justify-items-center">
-          <button onClick={() => handleSpeed(0.7)}>x0.7</button>
-          <button onClick={() => handleSpeed(0.8)}>x0.8</button>
-          <button onClick={() => handleSpeed(0.9)}>x0.9</button>
-          <button onClick={() => handleSpeed(1)}>x1</button>
-        </div>
-
-        <div className="grid justify-items-center">
-          再生スピード：{state.playbackRate} <br />
-          時間：{duration}秒 
-        </div>
-
-        <div className="grid justify-items-center">
-          <button onClick={() => handlePartialRepeat()}>A-B</button>  { partialRepeat ? 'ON' : 'OFF'}
-        </div>
-
+          <div className="main-buttons">
+            <button
+              className="bg-green-500 border-green-500 hover:bg-green-600 text-white text-lg font-bold py-4 px-10 rounded-full"
+              onClick={() => handlePlayAndPause()}>
+              {swithPlayIcon()}
+            </button>
+            <button 
+              className="mx-auto border border-gray-300 rounded-md text-md font-medium py-2 px-2 text-gray-500 dark:border-gray-600 dark:text-gray-400"
+              onClick={() => handleSpeed()}>
+                SPEED: { state.playbackRate }
+            </button>
+            <div className="main-buttons__second">{duration}/s</div>
+          </div>
         
-
-        <div className="grid justify-items-center">
-          <div>Min: <input type="number" value={point.start} onChange={(e) => handleStartPoint(e)} /></div>
-          <div>Max: <input type="number" max={duration} value={point.end} onChange={(e) => handleEndPoint(e)} /></div>
+          <div className={["repeat", switchRepeat()].join(' ')}>
+            <div className="repeat__button">
+              <button 
+              className="mx-auto border border-gray-300 rounded-md text-lg font-medium py-2 px-3 text-gray-500 dark:border-gray-600 dark:text-gray-400"
+              onClick={() => handlePartialRepeat()}>{ partialRepeat ? 'R:ON' : 'R:OFF'}</button>  
+            </div>
+            
+            <div className="repeat__inputs">
+              <label className="repeat__input">Min: <input type="number" value={point.start} onChange={(e) => handleStartPoint(e)} /></label>
+              <label className="repeat__input">Max: <input type="number" max={duration} value={point.end} onChange={(e) => handleEndPoint(e)} /></label>
+            </div>
+          </div>
         </div>
       </div>
     </div>
