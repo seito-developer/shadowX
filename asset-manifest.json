@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/count-jp/static/css/main.6e6514b5.chunk.css",
+    "main.js": "/count-jp/static/js/main.ccc8f044.chunk.js",
+    "main.js.map": "/count-jp/static/js/main.ccc8f044.chunk.js.map",
+    "runtime-main.js": "/count-jp/static/js/runtime-main.3153ee20.js",
+    "runtime-main.js.map": "/count-jp/static/js/runtime-main.3153ee20.js.map",
+    "static/js/2.a4a6534c.chunk.js": "/count-jp/static/js/2.a4a6534c.chunk.js",
+    "static/js/2.a4a6534c.chunk.js.map": "/count-jp/static/js/2.a4a6534c.chunk.js.map",
+    "static/js/3.83feb5f2.chunk.js": "/count-jp/static/js/3.83feb5f2.chunk.js",
+    "static/js/3.83feb5f2.chunk.js.map": "/count-jp/static/js/3.83feb5f2.chunk.js.map",
+    "index.html": "/count-jp/index.html",
+    "static/css/main.6e6514b5.chunk.css.map": "/count-jp/static/css/main.6e6514b5.chunk.css.map",
+    "static/js/2.a4a6534c.chunk.js.LICENSE.txt": "/count-jp/static/js/2.a4a6534c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3153ee20.js",
+    "static/js/2.a4a6534c.chunk.js",
+    "static/css/main.6e6514b5.chunk.css",
+    "static/js/main.ccc8f044.chunk.js"
+  ]
+}
