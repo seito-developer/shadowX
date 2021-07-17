@@ -81,18 +81,18 @@ button {
   height: 100px;
 }
 
-.MuiSlider-root {
+/* .MuiSlider-root {
   height: 20px !important;
-}
-.MuiSlider-track {
+} */
+/* .MuiSlider-track {
   height: 20px !important;
   border-radius: 10px 0 0 10px !important;
-}
-.MuiSlider-rail {
+} */
+/* .MuiSlider-rail {
   height: 20px !important;
   border-radius: 10px !important;
-}
-.MuiSlider-thumb {
+} */
+/* .MuiSlider-thumb {
   width: 26px !important;
   height: 26px !important;
-}
+} */

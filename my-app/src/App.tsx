@@ -6,6 +6,8 @@ import ReactPlayer from 'react-player'
 // '@types/vimeo__player'
 // const player = new Player(ReactPlayer);
 import Slider from '@material-ui/core/Slider';
+import { createTheme, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
 
 interface Props {
   ref: any
@@ -65,13 +67,41 @@ function App() {
      inputRange.current.seekTo(parseFloat(e.target.value));
   }
 
+  const handleSeekMouseSlide = (val:any) => {
+    // setState({ 
+    //   ...state,
+    //   seeking: false 
+    //  })
+     inputRange.current.seekTo(parseFloat(val));
+  }
+
   const handleProgress = (progress:any) => {
     setState({
       ...state,
       played: progress
     })
   }
-  
+  const AmountSlider = createTheme({
+    overrides: {
+      MuiSlider: {
+        root: {
+          height: 20
+        },
+        thumb: {
+          height: 26,
+          width: 26
+        },
+        track: {
+          height: 20,
+          borderRadius: 10
+        },
+        rail: {
+          height: 20,
+          borderRadius: 10
+        }
+      }
+    }
+  });
 
   // const renderLoadButton = (url:string, label:any) => {
   //   return (
@@ -82,6 +112,20 @@ function App() {
   //     </button>
   //   )
   // }
+  const handleCommitted = (event: object, value: number | number[]) => {
+    console.log('event:', event)
+    console.log('value:', value)
+    if(Array.isArray(value)) return
+
+    const count = value * 0.01
+    setState({
+      ...state,
+      played: {
+        played: count
+      }
+    })
+    handleSeekMouseSlide(count)
+  }
 
   return (
     <div className="App">
@@ -95,14 +139,17 @@ function App() {
           />
         </div>
 
-        <Slider 
-           value={state.played.played * 100}
-           onChange={handleSeekChange}
-             // value={value}
-             // onChange={handleChange}
-             // aria-labelledby="continuous-slider"
-             // height="50px"
-          />
+        <ThemeProvider theme={AmountSlider}>
+          <Slider 
+            value={state.played.played * 100}
+            onChange={handleSeekChange}
+            onChangeCommitted={(event, value) => handleCommitted(event, value)}
+              // value={value}
+              // onChange={handleChange}
+              aria-labelledby="continuous-slider"
+              // height="50px"
+            />
+        </ThemeProvider>
          <input
           className="progress"
           type='range' min={0} max={0.999999} step='any'
