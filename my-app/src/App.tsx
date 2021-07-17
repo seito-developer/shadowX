@@ -7,7 +7,7 @@ import ReactPlayer from 'react-player'
 // '@types/vimeo__player'
 // const player = new Player(ReactPlayer);
 import Slider from '@material-ui/core/Slider';
-import { createTheme, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 
 
 interface Props {
