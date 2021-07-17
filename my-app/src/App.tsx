@@ -44,6 +44,7 @@ function App() {
     },
     playing: false
     // seeking: false
+    
   })
 
   const handlePlayAndPause = () => {
@@ -113,6 +114,10 @@ function App() {
     }
   }
 
+  const handleReady = () => {
+
+  }
+
   return (
     <div className="App">
         
@@ -122,6 +127,7 @@ function App() {
           className='react-player' 
           {...state}
           onProgress={handleProgress}
+          onReady={handleReady}
           />
         </div>
 
@@ -143,6 +149,11 @@ function App() {
             onClick={() => handlePlayAndPause()}>
             {swithPlayIcon()}
           </button>
+        </div>
+
+        <div className="grid justify-items-center">
+          <div>Min: <input type="text" /></div>
+          <div>Max: <input type="text" /></div>
         </div>
       </div>
     </div>
