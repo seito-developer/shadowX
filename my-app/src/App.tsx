@@ -29,6 +29,11 @@ interface Props {
   playbackRate: number
 }
 
+interface PointProps {
+  start: number
+  end: number
+}
+
 const VIDEO_URL = 'https://player.vimeo.com/video/575873877'
 
 function App() {
@@ -46,11 +51,20 @@ function App() {
     playing: false,
     playbackRate: 1
     // seeking: false
-    
   })
+  const [ point, setPoint ] = useState<PointProps>({
+    start: 0,
+    end: 100
+  })
+
+  const handleReady = () => {
+    console.log(point.start)
+    inputRange.current.seekTo(point.start);
+  }
 
   const handlePlayAndPause = () => {
     if(!state.playing){
+      handleReady()
       setState({ ...state, playing: true })
     } else {
       setState({ ...state, playing: false })
@@ -123,8 +137,12 @@ function App() {
     })
   }
 
-  const handleReady = () => {
-
+  const handleStartPoint = (e:any) => {
+    console.log('point.start:', point.start)
+    setPoint({
+      ...point,
+      start: e.target.value
+    })
   }
 
   return (
@@ -135,7 +153,7 @@ function App() {
           <ReactPlayer 
           className='react-player' 
           {...state}
-          onProgress={handleProgress}
+          onProgress={handleProgress} 
           onReady={handleReady}
           />
         </div>
@@ -161,15 +179,19 @@ function App() {
         </div>
 
         <div className="grid justify-items-center">
-        <button onClick={() => handleSpeed(0.7)}>x0.7</button>
+          <button onClick={() => handleSpeed(0.7)}>x0.7</button>
           <button onClick={() => handleSpeed(0.8)}>x0.8</button>
           <button onClick={() => handleSpeed(0.9)}>x0.9</button>
           <button onClick={() => handleSpeed(1)}>x1</button>
         </div>
 
         <div className="grid justify-items-center">
-          <div>Min: <input type="text" /></div>
-          <div>Max: <input type="text" /></div>
+          {state.playbackRate}
+        </div>
+
+        <div className="grid justify-items-center">
+          <div>Min: <input type="number" value={point.start} onChange={(e) => handleStartPoint(e)} /></div>
+          <div>Max: <input type="number" /></div>
         </div>
       </div>
     </div>
