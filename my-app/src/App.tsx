@@ -26,6 +26,7 @@ interface Props {
   // playbackRate: number
   loop: boolean
   // seeking: boolean
+  playbackRate: number
 }
 
 const VIDEO_URL = 'https://player.vimeo.com/video/575873877'
@@ -42,7 +43,8 @@ function App() {
     played: {
       played: 0
     },
-    playing: false
+    playing: false,
+    playbackRate: 1
     // seeking: false
     
   })
@@ -114,6 +116,13 @@ function App() {
     }
   }
 
+  const handleSpeed = (val:number) => {
+    setState({
+      ...state,
+      playbackRate: val
+    })
+  }
+
   const handleReady = () => {
 
   }
@@ -149,6 +158,13 @@ function App() {
             onClick={() => handlePlayAndPause()}>
             {swithPlayIcon()}
           </button>
+        </div>
+
+        <div className="grid justify-items-center">
+        <button onClick={() => handleSpeed(0.7)}>x0.7</button>
+          <button onClick={() => handleSpeed(0.8)}>x0.8</button>
+          <button onClick={() => handleSpeed(0.9)}>x0.9</button>
+          <button onClick={() => handleSpeed(1)}>x1</button>
         </div>
 
         <div className="grid justify-items-center">
