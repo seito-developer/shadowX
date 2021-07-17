@@ -5,21 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100vh;
-}
-
-@supports (-webkit-touch-callout: none) {
-  body {
-    /* Safari用のハック */
-    height: -webkit-fill-available;
-  }
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
