@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@material-ui/core": "^4.12.1",
+    "@types/vimeo__player": "^2.10.1",
+    "@vimeo/player": "^2.15.3",
+    "react-player": "^2.9.0",
+    "tailwindcss": "^2.2.4"
+  }
+}
