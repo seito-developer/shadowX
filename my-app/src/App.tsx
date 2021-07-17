@@ -44,7 +44,7 @@ function App() {
     url: VIDEO_URL,
     width: '100%',
     height: '100%',
-    loop: true,
+    loop: false,
     played: {
       played: 0
     },
@@ -70,6 +70,36 @@ function App() {
       setState({ ...state, playing: false })
     }
   }
+  
+  const handleStart = () => {
+    console.log('start!')
+    handleReady()
+  }
+
+  const handlePlayStart = () => {
+    console.log('PlayStart!')
+    handleReady()
+  }
+
+  let timer:any
+  const handleEnded = () => {
+    console.log('end!')
+    setState({ ...state, playing: false })
+    handleReady()
+    
+    clearTimeout(timer)
+    timer = setTimeout(
+      () => { 
+        // setState({ ...state, playing: true })
+        setState({ ...state, playing: true })
+        // handlePlayAndPause();
+      }, 500
+    )
+    
+  }
+  // const handleEnded = () => {
+  //   handleReady()
+  // }
 
   const handleSeekChange = (e:any) => {
     setState({ 
@@ -138,7 +168,6 @@ function App() {
   }
 
   const handleStartPoint = (e:any) => {
-    console.log('point.start:', point.start)
     setPoint({
       ...point,
       start: e.target.value
@@ -155,18 +184,18 @@ function App() {
           {...state}
           onProgress={handleProgress} 
           onReady={handleReady}
+          onEnded={() => handleEnded()}
+          onStart={handleStart}
+          onPlay={handlePlayStart}
           />
         </div>
 
         <ThemeProvider theme={AmountSlider}>
           <Slider 
             value={state.played.played * 100}
+            aria-labelledby="continuous-slider"
             onChange={handleSeekChange}
             onChangeCommitted={(event, value) => handleCommitted(event, value)}
-              // value={value}
-              // onChange={handleChange}
-              aria-labelledby="continuous-slider"
-              // height="50px"
             />
         </ThemeProvider>
 
