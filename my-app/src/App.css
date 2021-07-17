@@ -2,7 +2,6 @@
   text-align: center;
   max-width: 750px;
   width: 100%;
-  height: 100vh;
   margin: 0 auto;
 }
 
@@ -43,8 +42,11 @@
 
 .player-wrapper {
   position: relative;
-  width: 100%;
-  height: 100%;
+  /*width: 100%;*/
+  /*height: 100%;*/
+  width: 375px;
+  height: 750px;
+  background: #ccc;
 }
 
 .react-player {
@@ -63,4 +65,10 @@
   width: 100%;
   height: 100px;
   background: #000;
+}
+
+button {
+  background: #ccc;
+  padding: 5px;
+  border: 1px solid #333;
 }
