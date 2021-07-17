@@ -18,7 +18,7 @@ interface Props {
   // light: boolean
   // volume: number
   // muted: boolean
-  played: number
+  played: any
   // loaded: number
   // duration: number
   // playbackRate: number
@@ -27,10 +27,7 @@ interface Props {
 }
 
 const VIDEO_URL = 'https://player.vimeo.com/video/575873877'
-// const player = new Player('handstick', {
-  // id: 441206570,
-  // width: 640
-// })
+
 function App() {
 
   const inputRange = useRef<any>('');
@@ -73,16 +70,18 @@ function App() {
       seeking: false 
      })
      inputRange.current.seekTo(parseFloat(e.target.value));
-    // .current.seekTo(parseFloat(e.target.value));
-    // player.seekTo(parseFloat(e.target.value))
   }
 
   const handleProgress = (progress:any) => {
-    console.log('onProgress', progress)
     // We only want to update time slider if we are not currently seeking
-    if (!state.seeking) {
-      setState(progress)
-    }
+    // if (!state.seeking) {
+    setState({
+      ...state,
+      played: progress
+    })
+    // }
+    console.log('played', state.played)
+    console.log('progress: ', progress)
   }
   
 
@@ -104,7 +103,10 @@ function App() {
         
       <div className="player-wrapper">
         <div className='player-wrapper'>
-          <ReactPlayer className='react-player' {...state}
+          <ReactPlayer 
+          className='react-player' 
+          {...state}
+          onProgress={handleProgress}
             // url={VIDEO_URL}
             // className='react-player'
             // width='100%'
@@ -115,7 +117,7 @@ function App() {
 
          <input
           type='range' min={0} max={0.999999} step='any'
-          value={state.played}
+          value={state.played.played}
           onMouseDown={handleSeekMouseDown}
           onChange={handleSeekChange}
           onMouseUp={handleSeekMouseUp} />
