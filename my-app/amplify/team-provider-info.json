@@ -1,0 +1,23 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-shadowx-dev-91618-authRole",
+            "UnauthRoleArn": "arn:aws:iam::332074517565:role/amplify-shadowx-dev-91618-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::332074517565:role/amplify-shadowx-dev-91618-authRole",
+            "Region": "ap-northeast-1",
+            "DeploymentBucketName": "amplify-shadowx-dev-91618-deployment",
+            "UnauthRoleName": "amplify-shadowx-dev-91618-unauthRole",
+            "StackName": "amplify-shadowx-dev-91618",
+            "StackId": "arn:aws:cloudformation:ap-northeast-1:332074517565:stack/amplify-shadowx-dev-91618/6639c950-e75d-11eb-80e0-0ec0ff3ddc99",
+            "AmplifyAppId": "d1tsfdkp62s5q3"
+        },
+        "categories": {
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "d1tsfdkp62s5q3",
+                    "type": "manual"
+                }
+            }
+        }
+    }
+}
