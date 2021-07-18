@@ -33,32 +33,36 @@ const Top:React.FC<Props> = ({ states }) => {
 
         <br />
 
-        <p>TikTokでコスパよくシャドーイングしよう！</p>
+        <p>TikTokで楽しく、コスパよくシャドーイングしよう！</p>
         
         <br />
 
         <div className="w-96 m-auto">
-
-          <button 
-            type="button"
-            className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded items-center my-0.5"
-            onClick={() => Transfer(VIDEOS[0])}>
-              Level: EASY by ボニー
-          </button>
-          <br />
-          <button 
-            type="button"
-            className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded items-center my-0.5"
-            onClick={() => Transfer(VIDEOS[1])}>
-              Level: NORMAL by Kevin's English
-          </button>
-          <br />
-          <button 
-            type="button"
-            className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded items-center my-0.5"
-            onClick={() => Transfer(VIDEOS[2])}>
-              Level: HARD by Lind
-          </button>
+          <div className="px-2">
+            <button 
+              type="button"
+              className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded items-center my-0.5"
+              onClick={() => Transfer(VIDEOS[0])}>
+                <span className="font-bold">Level: EASY</span><br />
+                by ボニー
+            </button>
+            <br />
+            <button 
+              type="button"
+              className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded items-center my-0.5"
+              onClick={() => Transfer(VIDEOS[1])}>
+                <span className="font-bold">Level: NORMAL</span><br />
+                by Kevin's English
+            </button>
+            <br />
+            <button 
+              type="button"
+              className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded items-center my-0.5"
+              onClick={() => Transfer(VIDEOS[2])}>
+                <span className="font-bold">Level: HARD</span><br />
+                by Lind
+            </button>
+          </div>
 
         </div>
     </div>
