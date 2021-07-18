@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Link, BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom'
 import './App.css';
 import './index.css';
 import ReactPlayer from 'react-player'
@@ -202,9 +203,18 @@ const Video:React.FC<Props> = ({ states }) => {
       return ''
     }
   }
+  
+  let history = useHistory()
 
   return (
     <div className="App">
+
+      <header className="header">
+        <button 
+          type="button"
+          className="header__button"
+          onClick={() => history.push('/')}>＜Back</button>
+      </header>
         
       <div className="player">
         <div className='player-wrapper'>

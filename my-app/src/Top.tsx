@@ -7,7 +7,7 @@ import { Props } from './App'
 
 // const VIDEO_URL = '//videm.com'
 const VIDEOS = [
-  'xxx','xxx','575873877'
+  '576424773','576424824','575873877'
 ]
 
 const Top:React.FC<Props> = ({ states }) => {
@@ -21,11 +21,14 @@ const Top:React.FC<Props> = ({ states }) => {
 
   return (
     <div className="App">
+      <header className="header">
+        <div className="header__name">ShadTik</div>
+      </header>
 
         <br />
         
         <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-          シャドテック
+          シャドティック
         </h2>
 
         <br />
@@ -39,22 +42,22 @@ const Top:React.FC<Props> = ({ states }) => {
           <button 
             type="button"
             className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded items-center my-0.5"
-            onClick={() => Transfer('xxx')}>
-              Level: EASY
+            onClick={() => Transfer(VIDEOS[0])}>
+              Level: EASY by ボニー
           </button>
           <br />
           <button 
             type="button"
             className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded items-center my-0.5"
-            onClick={() => Transfer('xxx')}>
-              Level: NORMAL
+            onClick={() => Transfer(VIDEOS[1])}>
+              Level: NORMAL by Kevin's English
           </button>
           <br />
           <button 
             type="button"
             className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded items-center my-0.5"
             onClick={() => Transfer(VIDEOS[2])}>
-              Level: HARD
+              Level: HARD by Lind
           </button>
 
         </div>
