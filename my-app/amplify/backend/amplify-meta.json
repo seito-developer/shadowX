@@ -21,7 +21,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-shadowx-dev-91618-deployment/amplify-cfn-templates/hosting/amplifyhosting-template.json",
         "logicalId": "hostingamplifyhosting"
       },
-      "lastPushTimeStamp": "2021-07-18T15:04:01.116Z",
+      "lastPushTimeStamp": "2021-07-27T05:07:39.879Z",
       "output": {},
       "lastPushDirHash": "/+VZ33seFFqAr6wbtptwbINUfSA="
     }

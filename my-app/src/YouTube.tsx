@@ -42,7 +42,7 @@ const YouTube:React.FC<Props> = ({ states }) => {
     url: VIDEO_URL + states.val,
     width: '100%',
     height: '100%',
-    loop: false,
+    loop: true,
     played: {
       played: 0
     },
