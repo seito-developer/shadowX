@@ -7,16 +7,16 @@ import { Props } from './App'
 
 // const VIDEO_URL = '//videm.com'
 const VIDEOS = [
-  '576424773','576424824','575873877'
+  '576424773','576424824','575873877', 'gOu9Rwl-yxw'
 ]
 
 const Top:React.FC<Props> = ({ states }) => {
   
   let history = useHistory()
 
-  const Transfer = (videoId:string) => {
+  const Transfer = (videoId:string, type = 'video') => {
     states.func(videoId)
-    history.push('/video')
+    history.push('/' + type)
   }
 
   return (
@@ -61,6 +61,14 @@ const Top:React.FC<Props> = ({ states }) => {
               onClick={() => Transfer(VIDEOS[2])}>
                 <span className="font-bold">Level: HARD</span><br />
                 by Lind
+            </button>
+            <br />
+            <button 
+              type="button"
+              className="w-full bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded items-center my-0.5"
+              onClick={() => Transfer(VIDEOS[3], 'youtube')}>
+                <span className="font-bold">Level: HARD</span><br />
+                by TED
             </button>
           </div>
 

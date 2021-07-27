@@ -4,6 +4,7 @@ import './App.css';
 import './index.css';
 import Top from './Top';
 import Video from './Video';
+import YouTube from './YouTube';
 
 // const VIDEO_URL = '//videm.com'
 const VIDEOS = [
@@ -31,6 +32,9 @@ const App = () => {
 					</Route>
           <Route exact path={'/video'}>
             <Video states={statesVideoId} />
+          </Route>
+          <Route exact path={'/youtube'}>
+            <YouTube states={statesVideoId} />
           </Route>
         </Switch>
       </Router>  
